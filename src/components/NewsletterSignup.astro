@@ -1,0 +1,74 @@
+---
+// Placeholder newsletter signup component.
+// Wire up to ConvertKit, Buttondown, or similar when ready.
+// Replace the form action with your provider's endpoint.
+---
+
+<section class="newsletter">
+  <h3>Follow the journey</h3>
+  <p>Get updates on building an AI business from zero to $10K/month. No spam.</p>
+  <form class="newsletter-form" action="#" method="POST">
+    <input type="email" name="email" placeholder="you@example.com" required />
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<style>
+  .newsletter {
+    background: var(--color-surface);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  p {
+    color: var(--color-muted);
+    margin: 0 0 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 24rem;
+    margin: 0 auto;
+  }
+
+  input[type='email'] {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.35rem;
+    font-size: 0.9rem;
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  button {
+    padding: 0.6rem 1.25rem;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 480px) {
+    .newsletter-form {
+      flex-direction: column;
+    }
+  }
+</style>
