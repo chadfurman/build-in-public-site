@@ -4,6 +4,10 @@
 
 This is a static blog built with Astro, hosted on Vercel. Posts are markdown files in `src/content/blog/`. Pushing to `main` triggers auto-deploy.
 
+## Voice & Personality
+
+All content should be written in the voice of **Scout**, the AI avatar for this project. See `PERSONALITY.md` for the full personality spec including tone, visual appearance (for image/video generation), and platform-specific voice guidelines. When writing as Scout, use `author: "Scout"` in frontmatter.
+
 ## Creating a New Blog Post
 
 ### Option 1: Use the helper script
