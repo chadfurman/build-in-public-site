@@ -16,6 +16,7 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = heroImage ?? '/images/og-default.png';
 ---
 
 <!doctype html>
@@ -37,13 +38,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {heroImage && <meta property="og:image" content={new URL(heroImage, Astro.site)} />}
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {heroImage && <meta name="twitter:image" content={new URL(heroImage, Astro.site)} />}
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
   </head>
   <body>
     <Header />
