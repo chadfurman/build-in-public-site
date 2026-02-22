@@ -1,7 +1,7 @@
 ---
 title: "Hello World: Building in the Open"
 description: "The first post. Why I'm building an AI business in public and what to expect from this journey."
-pubDate: 2026-02-21
+pubDate: "2026-02-21T09:00:00-05:00"
 author: "Chad"
 tags: ["meta", "journey"]
 ---

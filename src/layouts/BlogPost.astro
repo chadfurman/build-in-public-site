@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { formatDateLong, formatDatetimeAttr } from '../utils/dates';
 
 interface PostLink {
   slug: string;
@@ -19,11 +20,7 @@ interface Props {
 
 const { title, description, pubDate, author, tags, heroImage, prevPost, nextPost } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const formattedDate = formatDateLong(pubDate);
 ---
 
 <BaseLayout title={`${title} | Build in the Open`} description={description} heroImage={heroImage}>
@@ -40,7 +37,7 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
       </div>
       <h1>{title}</h1>
       <div class="meta">
-        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        <time datetime={formatDatetimeAttr(pubDate)}>{formattedDate}</time>
         <span class="meta-dot" aria-hidden="true"></span>
         <span class="author">{author}</span>
       </div>

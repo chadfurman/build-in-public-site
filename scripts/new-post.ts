@@ -26,6 +26,11 @@ const tags = tagsRaw ? tagsRaw.split(',').map((t) => t.trim()) : [];
 
 const now = new Date();
 const dateStr = now.toISOString().split('T')[0];
+const offsetMin = now.getTimezoneOffset();
+const sign = offsetMin <= 0 ? '+' : '-';
+const absH = String(Math.floor(Math.abs(offsetMin) / 60)).padStart(2, '0');
+const absM = String(Math.abs(offsetMin) % 60).padStart(2, '0');
+const isoTimestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}${sign}${absH}:${absM}`;
 const slug = title
   .toLowerCase()
   .replace(/[^a-z0-9]+/g, '-')
@@ -37,7 +42,7 @@ const tagsLine = tags.length > 0 ? `tags: [${tags.map((t) => `"${t}"`).join(', '
 const content = `---
 title: "${title}"
 description: ""
-pubDate: ${dateStr}
+pubDate: "${isoTimestamp}"
 author: "${author}"
 ${tagsLine}---
 
