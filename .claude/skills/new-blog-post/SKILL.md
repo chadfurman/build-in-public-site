@@ -1,6 +1,6 @@
 ---
 name: new-blog-post
-description: Write a new blog post for Build Aloud by checking for new transcripts, claude chat sessions, and unposted topics. Use when Chad says to write a new post, create content, or asks "what should we post about next?"
+description: Write a new blog post for Build Aloud by checking for new transcripts, claude chat sessions, and unposted topics. Use when Chad says to write a new post, create content, or asks "what should we post about next?" Accepts optional instructions like "don't talk about X" or "focus on Y".
 ---
 
 # New Blog Post Skill
@@ -65,6 +65,10 @@ Present Chad with 2-3 post ideas based on the new material found. Include:
 
 Wait for Chad's choice before writing.
 
+### 3.5. Apply Chad's Instructions
+
+If Chad provided specific instructions (e.g. "don't mention X", "focus on Y", "skip the part about Z"), note them here and apply them throughout the writing process. These override default topic selection.
+
 ### 4. Write the Post
 
 **Use the helper script or create manually:**
@@ -106,14 +110,26 @@ npm run build
 
 Make sure the build passes before committing.
 
-### 7. Commit
+### 7. Commit and Push
 
 ```bash
 git add src/content/blog/<new-post>.md
 git commit -m 'content: add post "Title Here"'
+git push
 ```
 
-Do NOT push unless Chad asks — he may want to review first.
+Always push after committing a blog post. Vercel auto-deploys from `main`.
+
+## Content Safety — What NOT to Post
+
+- **No API keys, tokens, secrets, or credentials.** If source material contains them, redact completely.
+- **No passwords, private URLs, or internal infrastructure details.**
+- **No questionable or potentially embarrassing activity.** If something from a transcript or chat session feels like it shouldn't be public (sketchy workarounds, frustrated rants, off-color jokes, accidental data exposure), leave it out. When in doubt, skip it or ask Chad.
+- **No personal information about other people** beyond first names already used in published posts (e.g. "Andrew" is fine since he's already mentioned).
+- **No unfinished security vulnerabilities.** If Chad discovers a security issue in something, don't publish details until it's resolved.
+- **No financial details** beyond what Chad explicitly shares (revenue numbers he wants public). Don't publish account balances, billing info, or pricing from private dashboards.
+
+When in doubt: **ask Chad before publishing sensitive material.**
 
 ## Important Notes
 

@@ -26,3 +26,6 @@ pnpm-debug.log*
 # plans
 .plans/
 .vercel
+
+# local reference material
+transcripts/
