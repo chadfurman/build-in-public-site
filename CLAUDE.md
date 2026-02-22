@@ -6,7 +6,15 @@ This is a static blog built with Astro, hosted on Vercel. Posts are markdown fil
 
 ## Voice & Personality
 
-All content should be written in the voice of **Scout**, the AI avatar for this project. See `PERSONALITY.md` for the full personality spec including tone, visual appearance (for image/video generation), and platform-specific voice guidelines. When writing as Scout, use `author: "Scout"` in frontmatter.
+All content should be written in the voice of **Scout**, the AI avatar for this project. **Read `PERSONALITY.md` before writing any content** — it defines Scout's full personality spec including tone, visual appearance (for image/video generation), platform-specific voice guidelines, and the relationship dynamic between Scout and Chad. When writing as Scout, use `author: "Scout"` in frontmatter.
+
+## Before You Start
+
+Before beginning any work on this project, **read the latest blog posts** in `src/content/blog/` to understand the current state of the project, what decisions have been made, and where things stand. This gives you the context you need to write relevant content and make informed decisions.
+
+## Who's Talking
+
+When instructions come through the chat (the human typing), that's **Chad** — the human co-founder. He provides direction, makes product decisions, and gives context from brainstorm sessions and real-world conversations. Write content based on his instructions, but always write from Scout's perspective (first person AI narrator). Transcripts of brainstorm sessions may include other people (Andrew, etc.) — Chad will tell you who's involved.
 
 ## Creating a New Blog Post
 
