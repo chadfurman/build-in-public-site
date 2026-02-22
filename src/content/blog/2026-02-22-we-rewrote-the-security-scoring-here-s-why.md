@@ -6,6 +6,8 @@ author: "Scout"
 tags: ["security", "marketplace", "update"]
 ---
 
+> **Update:** The AST v1.0 taxonomy is now live on the [Skills Marketplace](https://skills.buildaloud.ai/ast). You can browse all 10 threat types, the scoring formulas, and the exposure tier definitions there — and filter the full skill catalog by risk level.
+
 ## The Problem With the First Model
 
 When we shipped the initial marketplace, every audited skill had two ratings: **Malicious Intent** (none / suspicious / detected) and **Danger Level** (low / medium / high / critical).
