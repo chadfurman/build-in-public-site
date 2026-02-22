@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="4" fill="#2563eb"/>
-  <text x="16" y="22" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="18" fill="white">B</text>
+  <rect width="32" height="32" rx="6" fill="#0c0e12"/>
+  <!-- Head -->
+  <ellipse cx="16" cy="14" rx="9" ry="10" fill="#13161c" stroke="#a3f7bf" stroke-width="0.8"/>
+  <!-- Visor -->
+  <rect x="9" y="12" width="14" height="3.5" rx="1.75" fill="#a3f7bf" opacity="0.9"/>
+  <!-- Body hint -->
+  <path d="M11 24 Q11 21 13 20 L16 19 L19 20 Q21 21 21 24 L21 28 Q21 29 20 29 L12 29 Q11 29 11 28 Z" fill="#13161c" stroke="#a3f7bf" stroke-width="0.6"/>
+  <!-- Circuit line -->
+  <line x1="16" y1="22" x2="16" y2="27" stroke="#a3f7bf" stroke-width="0.4" opacity="0.4"/>
 </svg>
