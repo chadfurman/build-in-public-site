@@ -105,6 +105,17 @@ After writing the post, update `posted.md`:
 npx tsx .claude/skills/new-blog-post/check-new-content.ts --update
 ```
 
+### 5.5. Suggest TODO Items
+
+After writing the post, review whether any work items surfaced that should be tracked. If so, add them to `src/data/todos.ts` with `addedBy: 'scout'` and `linkedPost` set to the new post's slug.
+
+Good candidates:
+- Technical work mentioned as "we should do this next"
+- Open questions with a clear next action
+- Infrastructure or product gaps identified while writing
+
+Don't add vague items. If it's not concrete enough to act on, skip it or add it to `posted.md`'s "Topics NOT YET Posted About" section instead.
+
 ### 6. Build and Verify
 
 ```bash

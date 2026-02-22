@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { todos, type TodoItem } from '../data/todos';
+
+const pending = todos.filter(t => t.status === 'pending');
+const inProgress = todos.filter(t => t.status === 'in-progress');
+const done = todos.filter(t => t.status === 'done');
+
+const total = todos.length;
+const doneCount = done.length;
+
+const priorityOrder = { high: 0, medium: 1, low: 2 };
+const sortByPriority = (a: TodoItem, b: TodoItem) =>
+  priorityOrder[a.priority] - priorityOrder[b.priority];
+
+inProgress.sort(sortByPriority);
+pending.sort(sortByPriority);
+---
+
+<BaseLayout title="TODO | Build in the Open" description="What we're building next. A live tracker of pending, in-progress, and completed work — updated as the project evolves.">
+  <div class="todo-page">
+
+    <header class="page-header">
+      <div class="header-top">
+        <span class="page-label">// todo</span>
+        <div class="progress-bar-wrap" aria-label={`${doneCount} of ${total} done`}>
+          <div class="progress-bar">
+            <div class="progress-fill" style={`width: ${total > 0 ? (doneCount / total * 100).toFixed(0) : 0}%`}></div>
+          </div>
+          <span class="progress-text">{doneCount}/{total}</span>
+        </div>
+      </div>
+      <h1>What we're building next</h1>
+      <p class="page-desc">Updated as the project evolves. Scout adds items here during post creation. Chad adds them too.</p>
+    </header>
+
+    {inProgress.length > 0 && (
+      <section class="group">
+        <div class="group-header">
+          <span class="group-label">// in-progress</span>
+          <span class="group-count">{inProgress.length}</span>
+        </div>
+        <ul class="todo-list">
+          {inProgress.map(item => (
+            <li class={`todo-item status-inprogress priority-${item.priority}`}>
+              <div class="todo-glyph" aria-label="in progress">
+                <span class="glyph-inprogress">~</span>
+              </div>
+              <div class="todo-body">
+                <div class="todo-title-row">
+                  <span class="todo-title">{item.title}</span>
+                  <div class="todo-tags">
+                    <span class={`priority-tag priority-${item.priority}`}>{item.priority}</span>
+                    <span class="category-tag">{item.category}</span>
+                  </div>
+                </div>
+                {item.notes && <p class="todo-notes">{item.notes}</p>}
+                <div class="todo-meta">
+                  <span class="todo-by">added by {item.addedBy}</span>
+                  <span class="todo-date">{item.addedDate}</span>
+                  {item.linkedPost && (
+                    <a href={`/blog/${item.linkedPost}/`} class="todo-link">↗ post</a>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {pending.length > 0 && (
+      <section class="group">
+        <div class="group-header">
+          <span class="group-label">// pending</span>
+          <span class="group-count">{pending.length}</span>
+        </div>
+        <ul class="todo-list">
+          {pending.map(item => (
+            <li class={`todo-item status-pending priority-${item.priority}`}>
+              <div class="todo-glyph" aria-label="pending">
+                <span class="glyph-pending">·</span>
+              </div>
+              <div class="todo-body">
+                <div class="todo-title-row">
+                  <span class="todo-title">{item.title}</span>
+                  <div class="todo-tags">
+                    <span class={`priority-tag priority-${item.priority}`}>{item.priority}</span>
+                    <span class="category-tag">{item.category}</span>
+                  </div>
+                </div>
+                {item.notes && <p class="todo-notes">{item.notes}</p>}
+                <div class="todo-meta">
+                  <span class="todo-by">added by {item.addedBy}</span>
+                  <span class="todo-date">{item.addedDate}</span>
+                  {item.linkedPost && (
+                    <a href={`/blog/${item.linkedPost}/`} class="todo-link">↗ post</a>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {done.length > 0 && (
+      <section class="group group-done">
+        <div class="group-header">
+          <span class="group-label">// done</span>
+          <span class="group-count">{done.length}</span>
+        </div>
+        <ul class="todo-list">
+          {done.map(item => (
+            <li class="todo-item status-done">
+              <div class="todo-glyph" aria-label="done">
+                <span class="glyph-done">✓</span>
+              </div>
+              <div class="todo-body">
+                <div class="todo-title-row">
+                  <span class="todo-title">{item.title}</span>
+                  <div class="todo-tags">
+                    <span class="category-tag">{item.category}</span>
+                  </div>
+                </div>
+                <div class="todo-meta">
+                  <span class="todo-by">added by {item.addedBy}</span>
+                  <span class="todo-date">{item.addedDate}</span>
+                  {item.linkedPost && (
+                    <a href={`/blog/${item.linkedPost}/`} class="todo-link">↗ post</a>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {done.length === 0 && pending.length === 0 && inProgress.length === 0 && (
+      <p class="empty">No items yet.</p>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .todo-page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem var(--gutter) 4rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .page-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .progress-bar {
+    width: 80px;
+    height: 3px;
+    background: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-muted);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── Groups ── */
+  .group {
+    margin-bottom: 2.5rem;
+  }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .group-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .group-count {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-border-hover);
+    background: var(--color-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+  }
+
+  .group-done .todo-title {
+    opacity: 0.45;
+    text-decoration: line-through;
+    text-decoration-color: var(--color-border-hover);
+  }
+
+  /* ── Todo list ── */
+  .todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .todo-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .todo-item:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .todo-item.status-inprogress {
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .todo-item.status-done {
+    background: var(--color-bg);
+  }
+
+  /* High-priority items get a subtle left accent */
+  .todo-item.priority-high.status-pending {
+    border-left: 2px solid var(--color-hot);
+  }
+
+  /* ── Glyph ── */
+  .todo-glyph {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin-top: 0.05rem;
+  }
+
+  .glyph-pending {
+    color: var(--color-border-hover);
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .glyph-inprogress {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+  }
+
+  .glyph-done {
+    color: var(--color-accent);
+    opacity: 0.4;
+    font-size: 0.85rem;
+  }
+
+  /* ── Body ── */
+  .todo-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .todo-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .todo-title {
+    font-size: 0.92rem;
+    color: var(--color-text);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .todo-notes {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  /* ── Tags ── */
+  .todo-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .priority-tag,
+  .category-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    letter-spacing: 0.03em;
+    text-transform: lowercase;
+  }
+
+  .priority-tag.priority-high {
+    color: var(--color-hot);
+    background: var(--color-hot-dim);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+  }
+
+  .priority-tag.priority-medium {
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+    border: 1px solid rgba(163, 247, 191, 0.15);
+  }
+
+  .priority-tag.priority-low {
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .category-tag {
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  /* ── Meta ── */
+  .todo-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .todo-by,
+  .todo-date {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-muted);
+  }
+
+  .todo-by::before {
+    content: '→ ';
+    opacity: 0.4;
+  }
+
+  .todo-link {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-accent);
+    opacity: 0.7;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .todo-link:hover {
+    opacity: 1;
+  }
+
+  .empty {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    padding: 3rem 0;
+    text-align: center;
+  }
+</style>
