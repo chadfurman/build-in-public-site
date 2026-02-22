@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # local reference material
 transcripts/
+
+# skill config (machine-specific paths)
+.claude/skills/new-blog-post/config.json

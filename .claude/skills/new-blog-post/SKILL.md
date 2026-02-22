@@ -50,7 +50,16 @@ Cross-reference against `posted.md` — any transcript not listed there is new m
 ```bash
 npx tsx .claude/skills/new-blog-post/check-new-content.ts --discover
 ```
-This scans all Claude project directories for `.jsonl` sessions whose `cwd` is under `business-brainstorm`, filters out already-symlinked ones, and prints suggested `ln -s` commands. Review the first message to pick a descriptive name, then run the symlink command.
+This scans all Claude project directories for `.jsonl` sessions that reference any configured relevance pattern (default: `business-brainstorm`) — checking `cwd`, the project directory path, AND file paths in the first 64KB of content. This catches sessions started from parent directories that work on child projects (e.g., skills-marketplace sessions started from `/Users/.../projects`). Filters out already-symlinked files and prints suggested `ln -s` commands. Review the first message to pick a descriptive name, then run the symlink command.
+
+**If discover misses sessions or this is a fresh install**, run setup:
+```bash
+npx tsx .claude/skills/new-blog-post/check-new-content.ts --setup
+```
+This creates/updates `config.json` next to the script. Edit it to:
+- Change `chatsDir` if the claude-chats directory is elsewhere
+- Change `claudeProjectsDir` if Claude stores projects in a non-default location
+- Add entries to `relevancePatterns` for additional project name patterns to match
 
 **Check the "Topics NOT YET Posted About" section in `posted.md`** for ideas.
 

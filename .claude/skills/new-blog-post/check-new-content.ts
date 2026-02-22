@@ -1,10 +1,62 @@
 import * as fs from "fs";
 import * as path from "path";
+import * as os from "os";
 
-const CHATS_DIR = "/Users/chadfurman/projects/business-brainstorm/claude-chats";
+const SKILL_DIR = path.dirname(new URL(import.meta.url).pathname);
+const CONFIG_FILE = path.join(SKILL_DIR, "config.json");
+
+interface Config {
+  chatsDir: string;
+  claudeProjectsDir: string;
+  relevancePatterns: string[];
+}
+
+const DEFAULT_CONFIG: Config = {
+  chatsDir: "",
+  claudeProjectsDir: path.join(os.homedir(), ".claude", "projects"),
+  relevancePatterns: ["business-brainstorm"],
+};
+
+function loadConfig(): Config {
+  if (fs.existsSync(CONFIG_FILE)) {
+    const stored = JSON.parse(fs.readFileSync(CONFIG_FILE, "utf-8"));
+    return { ...DEFAULT_CONFIG, ...stored };
+  }
+  return DEFAULT_CONFIG;
+}
+
+function saveConfig(config: Config): void {
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2) + "\n");
+}
+
+function resolveConfig(): Config {
+  const config = loadConfig();
+  if (!config.chatsDir) {
+    // Auto-detect: walk up from skill dir to find claude-chats
+    let dir = path.resolve(SKILL_DIR, "..", "..", "..");
+    while (dir !== path.dirname(dir)) {
+      const candidate = path.join(path.dirname(dir), "claude-chats");
+      if (fs.existsSync(candidate)) {
+        config.chatsDir = candidate;
+        break;
+      }
+      dir = path.dirname(dir);
+    }
+    if (!config.chatsDir) {
+      console.error(
+        "Could not auto-detect chatsDir. Run --setup to configure."
+      );
+      process.exit(1);
+    }
+  }
+  return config;
+}
+
+const config = resolveConfig();
+const CHATS_DIR = config.chatsDir;
 const CURSORS_FILE = path.join(CHATS_DIR, "cursors.json");
-const CLAUDE_PROJECTS_DIR = "/Users/chadfurman/.claude/projects";
-const RELEVANCE_PATTERN = "business-brainstorm";
+const CLAUDE_PROJECTS_DIR = config.claudeProjectsDir;
+const RELEVANCE_PATTERNS = config.relevancePatterns;
 
 interface Cursor {
   lastByteOffset: number;
@@ -296,6 +348,10 @@ function summaryMode(targetFile: string): void {
   }
 }
 
+function isRelevant(textToCheck: string): boolean {
+  return RELEVANCE_PATTERNS.some((pattern) => textToCheck.includes(pattern));
+}
+
 function discoverMode(): void {
   // Collect real paths of all already-symlinked files
   const linkedTargets = new Set<string>();
@@ -368,7 +424,13 @@ function discoverMode(): void {
         }
       }
 
-      if (cwd.includes(RELEVANCE_PATTERN)) {
+      // Check relevance: cwd, project dir name, OR file paths in content
+      const relevant =
+        isRelevant(cwd) ||
+        isRelevant(dir) ||
+        isRelevant(chunk);
+
+      if (relevant) {
         found.push({ file: fullPath, cwd, firstUserMsg });
       }
     }
@@ -403,11 +465,41 @@ function discoverMode(): void {
   }
 }
 
+function setupMode(): void {
+  const existing = loadConfig();
+  const config: Config = { ...DEFAULT_CONFIG, ...existing };
+
+  // Auto-detect chatsDir from git repo
+  if (!config.chatsDir) {
+    const candidate = path.resolve(SKILL_DIR, "..", "..", "..", "..", "claude-chats");
+    if (fs.existsSync(candidate)) {
+      config.chatsDir = candidate;
+    }
+  }
+
+  // Auto-detect claudeProjectsDir
+  if (!config.claudeProjectsDir) {
+    config.claudeProjectsDir = path.join(os.homedir(), ".claude", "projects");
+  }
+
+  saveConfig(config);
+  console.log("Config saved to:", CONFIG_FILE);
+  console.log(JSON.stringify(config, null, 2));
+  console.log(
+    "\nEdit this file to add relevance patterns or change directories."
+  );
+  console.log(
+    'Example: add "my-project" to relevancePatterns to discover sessions working on that project.'
+  );
+}
+
 // --- CLI ---
 
 const args = process.argv.slice(2);
 
-if (args.includes("--update")) {
+if (args.includes("--setup")) {
+  setupMode();
+} else if (args.includes("--update")) {
   updateMode();
 } else if (args.includes("--summary")) {
   const idx = args.indexOf("--summary");
