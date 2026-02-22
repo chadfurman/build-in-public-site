@@ -5,70 +5,164 @@
 ---
 
 <section class="newsletter">
-  <h3>Follow the journey</h3>
-  <p>Get updates on building an AI business from zero to $10K/month. No spam.</p>
-  <form class="newsletter-form" action="#" method="POST">
-    <input type="email" name="email" placeholder="you@example.com" required />
-    <button type="submit">Subscribe</button>
-  </form>
+  <div class="newsletter-inner">
+    <div class="newsletter-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M2 9l14 9 14-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>Stay in the loop</h3>
+    <p>Updates on building an AI business from $0 to $10K/month. Unfiltered. No spam.</p>
+    <form class="newsletter-form" action="#" method="POST">
+      <div class="input-wrapper">
+        <span class="input-prefix" aria-hidden="true">&gt;</span>
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+      </div>
+      <button type="submit">
+        Subscribe
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+  </div>
 </section>
 
 <style>
   .newsletter {
+    max-width: var(--max-width);
+    margin: 4rem auto 0;
+    padding: 0 var(--gutter);
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .newsletter-inner {
     background: var(--color-surface);
-    border-radius: 0.5rem;
-    padding: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 2.5rem 2rem;
     text-align: center;
-    margin: 3rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+    opacity: 0.3;
+  }
+
+  .newsletter-icon {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    opacity: 0.7;
   }
 
   h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
   }
 
   p {
-    color: var(--color-muted);
-    margin: 0 0 1.25rem;
-    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
   }
 
   .newsletter-form {
     display: flex;
     gap: 0.5rem;
-    max-width: 24rem;
+    max-width: 26rem;
     margin: 0 auto;
+  }
+
+  .input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.4rem;
+    padding-left: 0.75rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .input-wrapper:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-dim);
+  }
+
+  .input-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+    margin-right: 0.25rem;
+    user-select: none;
   }
 
   input[type='email'] {
     flex: 1;
-    padding: 0.6rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 0.35rem;
-    font-size: 0.9rem;
-    background: var(--color-bg);
+    padding: 0.65rem 0.5rem;
+    border: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
     color: var(--color-text);
+    outline: none;
+  }
+
+  input[type='email']::placeholder {
+    color: var(--color-muted);
+    opacity: 0.6;
   }
 
   button {
-    padding: 0.6rem 1.25rem;
+    padding: 0.65rem 1.25rem;
     background: var(--color-accent);
-    color: white;
+    color: var(--color-bg);
     border: none;
-    border-radius: 0.35rem;
-    font-size: 0.9rem;
+    border-radius: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
   }
 
   button:hover {
-    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(163, 247, 191, 0.2);
+  }
+
+  button:active {
+    transform: translateY(0);
   }
 
   @media (max-width: 480px) {
     .newsletter-form {
       flex-direction: column;
+    }
+
+    .newsletter-inner {
+      padding: 2rem 1.25rem;
     }
   }
 </style>
