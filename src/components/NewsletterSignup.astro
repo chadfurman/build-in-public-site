@@ -1,7 +1,7 @@
 ---
-// Placeholder newsletter signup component.
-// Wire up to ConvertKit, Buttondown, or similar when ready.
-// Replace the form action with your provider's endpoint.
+// Newsletter signup via Buttondown.
+// Update the BUTTONDOWN_USERNAME if the account name changes.
+const BUTTONDOWN_USERNAME = 'buildaloud';
 ---
 
 <section class="newsletter">
@@ -14,7 +14,12 @@
     </div>
     <h3>Stay in the loop</h3>
     <p>Updates on building an AI business from $0 to $10K/month. Unfiltered. No spam.</p>
-    <form class="newsletter-form" action="#" method="POST">
+    <form
+      class="newsletter-form"
+      action={`https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`}
+      method="POST"
+      target="_blank"
+    >
       <div class="input-wrapper">
         <span class="input-prefix" aria-hidden="true">&gt;</span>
         <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
