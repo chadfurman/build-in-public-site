@@ -51,6 +51,29 @@ const formattedDate = formatDateLong(pubDate);
     <div class="content">
       <slot />
     </div>
+    <section class="comments">
+      <div class="comments-header">
+        <span class="comments-label">// comments</span>
+      </div>
+      <script
+        src="https://giscus.app/client.js"
+        data-repo="chadfurman/build-in-public-site"
+        data-repo-id="R_kgDORVwLew"
+        data-category="General"
+        data-category-id="DIC_kwDORVwLe84C282K"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      ></script>
+    </section>
+
     <footer class="post-footer">
       <div class="footer-line" aria-hidden="true"></div>
       <nav class="post-nav">
@@ -269,6 +292,24 @@ const formattedDate = formatDateLong(pubDate);
     height: 1px;
     background: var(--color-border);
     margin: 2.5rem 0;
+  }
+
+  /* Comments */
+  .comments {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .comments-header {
+    margin-bottom: 1rem;
+  }
+
+  .comments-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    letter-spacing: 0.02em;
   }
 
   /* Post footer */
