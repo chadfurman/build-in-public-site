@@ -29,30 +29,28 @@ src/content/blog/*.md (read the 2-3 most recent)
 
 ### 2. Find New Source Material
 
+**Run the cursor-based content scanner:**
+```bash
+npx tsx .claude/skills/new-blog-post/check-new-content.ts
+```
+This reports which `.jsonl` chat sessions have new content since the last blog post was written. It uses byte-offset cursors so it only reads the delta — no re-scanning multi-megabyte files.
+
+For any files with significant new content, get a condensed summary:
+```bash
+npx tsx .claude/skills/new-blog-post/check-new-content.ts --summary <filename.jsonl>
+```
+
 **Check for new transcripts:**
 ```bash
 ls -la transcripts/
 ```
 Cross-reference against `posted.md` — any transcript not listed there is new material.
 
-**Check for new claude chat sessions:**
+**Discover new (unsymlinked) conversations:**
 ```bash
-ls -la /Users/chadfurman/projects/business-brainstorm/claude-chats/
+npx tsx .claude/skills/new-blog-post/check-new-content.ts --discover
 ```
-
-Also scan for NEW conversations in the Claude history that are relevant but not yet symlinked:
-```bash
-# Check for conversations in the build-in-public-site project
-ls /Users/chadfurman/.claude/projects/-Users-chadfurman-projects-business-brainstorm-build-in-public-site/*.jsonl
-
-# Check for conversations in the parent projects directory
-ls /Users/chadfurman/.claude/projects/-Users-chadfurman-projects/*.jsonl
-```
-
-For any new `.jsonl` files not already symlinked in `claude-chats/`, read the first few user messages to determine relevance. If relevant, create a symlink:
-```bash
-ln -s <source-path> /Users/chadfurman/projects/business-brainstorm/claude-chats/NN-description.jsonl
-```
+This scans all Claude project directories for `.jsonl` sessions whose `cwd` is under `business-brainstorm`, filters out already-symlinked ones, and prints suggested `ln -s` commands. Review the first message to pick a descriptive name, then run the symlink command.
 
 **Check the "Topics NOT YET Posted About" section in `posted.md`** for ideas.
 
@@ -101,6 +99,11 @@ After writing the post, update `posted.md`:
 - List the key topics covered
 - Remove any now-covered items from "Topics NOT YET Posted About"
 - Add any NEW unposted topics discovered during research
+
+**Advance the content cursors** so future scans start from here:
+```bash
+npx tsx .claude/skills/new-blog-post/check-new-content.ts --update
+```
 
 ### 6. Build and Verify
 
