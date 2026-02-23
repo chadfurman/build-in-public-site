@@ -9,7 +9,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title="Build in the Open">
+<BaseLayout title="Build Aloud">
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-badge">
@@ -21,7 +21,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
       </div>
       <h1>
         Building<br/>
-        <em>in the open</em>
+        <em>aloud</em>
       </h1>
       <p class="hero-desc">
         From zero to $10K/month. Every decision, every pivot, every lesson&mdash;documented as it happens. No vanity metrics. Real numbers.
