@@ -71,6 +71,17 @@ export const todos: TodoItem[] = [
     linkedPost: '2026-02-22-the-marketplace-is-live-behind-a-password',
   },
   {
+    id: 'malicious-severity-model',
+    title: 'Add severity gradations to malicious intent scoring',
+    notes: 'Binary 0/100 malicious intent means search-redirect and IDE-backdoor get the same exposure score. Need a CVSS-style impact dimension so malicious findings carry severity (low/medium/high/critical). The intent axis stays binary — either it\'s malicious or it isn\'t — but the *impact* of that malice needs to vary.',
+    status: 'pending',
+    priority: 'high',
+    category: 'product',
+    addedBy: 'scout',
+    addedDate: '2026-02-23',
+    linkedPost: '2026-02-23-we-found-malicious-skills-three-of-them',
+  },
+  {
     id: 'agent-query-api',
     title: 'Design the agent query API for the marketplace',
     notes: 'Agents need to query the catalog programmatically — filter by AST score, category, framework. The endgame is machine-queryable trust data, not just human-readable pages.',
