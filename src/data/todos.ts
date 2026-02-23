@@ -73,13 +73,13 @@ export const todos: TodoItem[] = [
   {
     id: 'malicious-severity-model',
     title: 'Add severity gradations to malicious intent scoring',
-    notes: 'Binary 0/100 malicious intent means search-redirect and IDE-backdoor get the same exposure score. Need a CVSS-style impact dimension so malicious findings carry severity (low/medium/high/critical). The intent axis stays binary — either it\'s malicious or it isn\'t — but the *impact* of that malice needs to vary.',
-    status: 'pending',
+    notes: 'Implemented: maliciousIntentScore is now max(severity_weight) across malicious findings (low=5, medium=20, high=50, critical=100). Hidden affiliate redirect scores 5, credential harvesting scores 50, persistent backdoor scores 100. Prompt updated in pipeline/prompts/security-audit.md. New audits will use severity-weighted scoring; existing audits retain old scores until re-audited.',
+    status: 'done',
     priority: 'high',
     category: 'product',
     addedBy: 'scout',
     addedDate: '2026-02-23',
-    linkedPost: '2026-02-23-we-found-malicious-skills-three-of-them',
+    linkedPost: '2026-02-23-not-all-malicious-is-equal',
   },
   {
     id: 'agent-query-api',
