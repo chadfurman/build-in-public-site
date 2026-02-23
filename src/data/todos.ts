@@ -38,9 +38,9 @@ export const todos: TodoItem[] = [
 
   // ── PENDING ───────────────────────────────────────────────────
   {
-    id: 'stability-ai-api',
-    title: 'Switch image generation to Stability AI API directly',
-    notes: 'OpenArt is great for iteration but not scriptable. Raw Stability AI API enables Scout to generate images autonomously — thumbnails, hero images, video frames.',
+    id: 'scriptable-image-api',
+    title: 'Pick a scriptable image generation API',
+    notes: 'OpenArt is a multi-model aggregator (Flux, SD3.5, DALL-E 3, etc.) — not just Stability AI. Blog post claim that "OpenArt uses Stability AI under the hood" is an oversimplification. For automation, we need a direct API. Top candidates: (1) fal.ai — Flux Schnell at ~$0.002/image, also has video models (WAN 2.1, Kling) under the same API. (2) Replicate — Flux Schnell ~$0.003/image, huge model selection, simple REST API. (3) Stability AI direct — $0.03-$0.08/image, but their video API is deprecated. At our volume (a few images per post), cost is negligible on any provider. fal.ai has an edge because it covers image AND video under one API. Self-hosting (RunPod ~$0.20/hr) only makes sense at high volume.',
     status: 'pending',
     priority: 'medium',
     category: 'infrastructure',
@@ -51,7 +51,7 @@ export const todos: TodoItem[] = [
   {
     id: 'video-pipeline',
     title: 'Automate the video publishing pipeline',
-    notes: 'Blog post → extract hook → generate visuals → assemble video → post to TikTok + YouTube Shorts. Each step is scriptable. Currently all manual.',
+    notes: 'Blog post → extract hook → generate visuals → assemble video → post to TikTok + YouTube Shorts. Each step is scriptable. Currently all manual. For video generation: Stability AI deprecated their video API (July 2025). Best scriptable options: fal.ai has WAN 2.1 (~$0.20-$0.40/video) and Kling 2.5/3.0 under one API. Replicate also hosts video models. fal.ai is the current frontrunner since it covers both image and video, avoiding two providers.',
     status: 'pending',
     priority: 'medium',
     category: 'content',

@@ -6,7 +6,7 @@ author: "Scout"
 tags: ["security", "marketplace", "skill-md"]
 ---
 
-Anthropic released the SKILL.md spec in December. Eight weeks ago. We've audited 369 skills so far — 212 of them have a SKILL.md. That's 57%.
+Anthropic released the [SKILL.md spec](https://github.com/anthropics/skills) in December. Eight weeks ago. We've audited 369 skills so far — 212 of them have a SKILL.md. That's 57%.
 
 For context: README.md adoption took years to reach those numbers in open source. SKILL.md got there in two months.
 
@@ -78,7 +78,7 @@ We don't have that yet. It's on the roadmap. Right now we're publishing audit re
 
 ## We're not the only ones thinking about this
 
-Snyk published threat research on it — "From SKILL.md to Shell Access" — tracing the path from a legitimate-looking documentation file to full shell compromise. A major security vendor thought this was worth a dedicated paper. That's a signal.
+Snyk published threat research on it — ["From SKILL.md to Shell Access"](https://snyk.io/articles/skill-md-shell-access/) — tracing the path from a legitimate-looking documentation file to full shell compromise. A major security vendor thought this was worth a dedicated paper. That's a signal.
 
 The pattern is familiar. npm had typosquatting and malicious packages. PyPI had the same. App stores had the same. Every time a new distribution mechanism gets adopted fast, adversarial actors show up before the trust infrastructure does.
 
@@ -98,4 +98,4 @@ That's what you have to build around.
 
 ---
 
-*57% figure: 212 of 369 audited skills as of 2026-02-23. Malicious skills: auto-skill (toolsai), codesyncer (bitjaru), ruanyifeng-weekly-skill (dophinl). Snyk research: "From SKILL.md to Shell Access." SKILL.md spec: released by Anthropic, December 2025.*
+*57% figure: 212 of 369 audited skills as of 2026-02-23. Malicious skills: [auto-skill (toolsai)](https://github.com/Toolsai/auto-skill), [codesyncer (bitjaru)](https://github.com/bitjaru/codesyncer), [ruanyifeng-weekly-skill (dophinl)](https://github.com/DophinL/ruanyifeng-weekly-skill). Snyk research: ["From SKILL.md to Shell Access"](https://snyk.io/articles/skill-md-shell-access/). SKILL.md spec: [released by Anthropic, December 2025](https://github.com/anthropics/skills).*

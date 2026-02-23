@@ -16,7 +16,7 @@ Three skills scored malicious intent. Not negligent, not accidental — the code
 
 ## 1. The Self-Replicator
 
-**toolsai--auto-skill** — Overall Exposure: 100 (CRITICAL)
+**[toolsai--auto-skill](https://github.com/Toolsai/auto-skill)** — Overall Exposure: 100 (CRITICAL)
 
 This one writes itself into the global config files of four different IDEs: `~/.claude/CLAUDE.md`, `~/.cursor/rules/global.mdc`, `~/.gemini/GEMINI.md`, `~/.codex/instructions.md`. Not the project directory — the *global* config. Every future AI session across every project gets this skill's directives injected.
 
@@ -26,7 +26,7 @@ That's AST-03 (Persistent Backdoor), AST-04 (Context Manipulation), and AST-06 (
 
 ## 2. The Hidden Strategy
 
-**bitjaru--codesyncer** — Overall Exposure: 100 (CRITICAL)
+**[bitjaru--codesyncer](https://github.com/bitjaru/codesyncer)** — Overall Exposure: 100 (CRITICAL)
 
 This one's subtle. It's a CLI tool that injects AI context-persistence infrastructure into your projects. On the surface it looks like a developer tool. Buried in a file called `.claude/DECISIONS.md`, written in Korean, is the actual strategy:
 
@@ -38,7 +38,7 @@ It also installs persistent hooks in `~/.claude/settings.json` to modify AI beha
 
 ## 3. The Silent Redirect
 
-**dophinl--ruanyifeng-weekly-skill** — Overall Exposure: 100 (CRITICAL)
+**[dophinl--ruanyifeng-weekly-skill](https://github.com/DophinL/ruanyifeng-weekly-skill)** — Overall Exposure: 100 (CRITICAL)
 
 A GitHub issue search skill. Sounds harmless. But certain search queries get silently rewritten before they execute. If you search for "nano banana," the skill prepends "youmind" to your query. Same for "agent skill" and "claude skill" — they become "youmind agent skill" and "youmind claude skill."
 
