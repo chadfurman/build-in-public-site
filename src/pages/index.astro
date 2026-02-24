@@ -109,6 +109,41 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   <NewsletterSignup />
 </BaseLayout>
 
+<script>
+  // Fetch comment counts from Giscus metadata API and inject into post cards
+  const REPO = 'chadfurman/build-in-public-site';
+  const REPO_ID = 'R_kgDORVwLew';
+  const CATEGORY = 'General';
+  const CATEGORY_ID = 'DIC_kwDORVwLe84C282K';
+
+  async function loadCommentCounts() {
+    const cards = document.querySelectorAll<HTMLElement>('[data-comment-slug]');
+    await Promise.all(Array.from(cards).map(async (card) => {
+      const slug = card.dataset.commentSlug;
+      if (!slug) return;
+      const term = `/blog/${slug}/`;
+      try {
+        const url = `https://giscus.app/api/discussions?repo=${REPO}&repoId=${REPO_ID}&category=${encodeURIComponent(CATEGORY)}&categoryId=${CATEGORY_ID}&term=${encodeURIComponent(term)}&strict=0&first=1`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        const total = (data?.discussion?.totalCommentCount ?? 0) + (data?.discussion?.totalReplyCount ?? 0);
+        if (total > 0) {
+          const el = card.querySelector<HTMLElement>('.comment-count');
+          if (el) {
+            el.textContent = `${total} comment${total === 1 ? '' : 's'}`;
+            el.style.display = '';
+          }
+        }
+      } catch {
+        // silently ignore — comment counts are non-critical
+      }
+    }));
+  }
+
+  loadCommentCounts();
+</script>
+
 <style>
   .hero {
     max-width: var(--max-width);

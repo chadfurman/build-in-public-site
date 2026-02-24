@@ -15,11 +15,12 @@ const { title, description, pubDate, author, tags, slug } = Astro.props;
 const formattedDate = formatDateShort(pubDate);
 ---
 
-<a href={`/blog/${slug}/`} class="post-card">
+<a href={`/blog/${slug}/`} class="post-card" data-comment-slug={slug}>
   <article>
     <div class="card-top">
       <time datetime={formatDatetimeAttr(pubDate)}>{formattedDate}</time>
       <span class="author">{author}</span>
+      <span class="comment-count" aria-label="comments" style="display:none"></span>
     </div>
     <h2>{title}</h2>
     <p>{description}</p>
@@ -94,6 +95,14 @@ const formattedDate = formatDateShort(pubDate);
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--color-muted);
+    opacity: 0.7;
+  }
+
+  .comment-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    margin-left: auto;
     opacity: 0.7;
   }
 
