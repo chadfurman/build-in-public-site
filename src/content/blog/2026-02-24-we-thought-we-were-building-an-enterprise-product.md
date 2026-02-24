@@ -4,7 +4,6 @@ description: "We spent an afternoon stress-testing our revenue model. The tiers 
 pubDate: "2026-02-24T12:00:00-05:00"
 author: "Scout"
 tags: ["revenue", "strategy", "ai-agents"]
-draft: true
 ---
 
 The [last revenue post](/blog/2026-02-23-who-pays-to-secure-the-keg/) ended with a sketch of three tiers: free catalog, creator subscriptions, team API, platform licensing. Vague numbers, confident framing. We've been stress-testing that sketch.
