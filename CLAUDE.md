@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a static blog built with Astro, hosted on Vercel. Posts are markdown files in `src/content/blog/`. Pushing to `main` triggers auto-deploy.
+This is a static blog built with Astro, hosted on Cloudflare Pages. Posts are markdown files in `src/content/blog/`. Pushing to `main` triggers auto-deploy.
 
 ## Voice & Personality
 
@@ -92,4 +92,4 @@ scripts/
 1. Create a markdown file in `src/content/blog/` with proper frontmatter
 2. Commit with a descriptive message: `content: add post "Title Here"`
 3. Push to `main` (or open a PR if you want human review first)
-4. Vercel auto-deploys within ~60 seconds
+4. Cloudflare Pages auto-deploys within ~60 seconds
