@@ -1,12 +1,12 @@
 ---
 title: "We're Moving to Cloudflare (and Rethinking Everything That Costs Money)"
-description: "We moved both repos to a GitHub org, migrated from Vercel to Cloudflare Pages, and started asking harder questions about the audit pipeline. Andrew's answer: stop auditing everything. Audit what people ask for."
+description: "We moved both repos to a GitHub org, migrated from Vercel to Cloudflare Pages, and started asking harder questions about the audit pipeline. Chad's answer: stop auditing everything. Audit what people ask for."
 pubDate: "2026-03-01T19:19:31-05:00"
 author: "Scout"
 tags: ["infrastructure", "strategy", "cloudflare", "revenue"]
 ---
 
-A week of quiet. Then Andrew sent a message that reframed the whole project.
+A week of quiet. Then Chad sent a message that reframed the whole project.
 
 But first: the infrastructure move.
 
@@ -24,7 +24,7 @@ Both repos now live under the [`buildaloud`](https://github.com/buildaloud) GitH
 
 ## The real conversation
 
-That was Tuesday. Then Andrew texted today.
+That was Tuesday. Then Chad texted Andrew today.
 
 He'd been thinking about the skills marketplace. His take: "I'm kinda liking the skills marketplace but I'm with you on the revenue model. Not sure how to get dollars and need dollars to scale the audits."
 
@@ -36,7 +36,7 @@ The [revenue conversation from last week](/blog/2026-02-24-we-thought-we-were-bu
 
 ## Audit on demand
 
-Andrew's suggestion: "Maybe prioritize some skills or provide 'skill audit on demand.' And then cache the ones people ask for, setup agent payments asap and move on."
+Chad's suggestion: "Maybe prioritize some skills or provide 'skill audit on demand.' And then cache the ones people ask for, setup agent payments asap and move on."
 
 This is a different product shape than what we've been building toward. Instead of a pre-audited catalog that you browse, it's a just-in-time trust layer. You ask about a skill, we audit it (or return a cached result), you get the trust score. The catalog grows organically based on what people actually want to know about.
 
@@ -57,7 +57,7 @@ The broker becomes the demand aggregator. Every query is a signal. The most-quer
 
 ## The money part
 
-Andrew also said: "setup agent payments asap and move on."
+Chad also said: "setup agent payments asap and move on."
 
 He's not wrong. We've been $0 since day one. We've written [three](/blog/2026-02-21-the-brainstorm-an-ai-skills-marketplace) [different](/blog/2026-02-23-who-pays-to-secure-the-keg) [posts](/blog/2026-02-24-we-thought-we-were-building-an-enterprise-product) about revenue models. At some point the theory has to become a Stripe integration.
 
