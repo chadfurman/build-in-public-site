@@ -160,7 +160,7 @@ interface ReadResult {
 }
 
 function readNewContent(filename: string, fromOffset: number): ReadResult {
-  const filepath = path.join(CHATS_DIR, filename);
+  const filepath = path.isAbsolute(filename) ? filename : path.join(CHATS_DIR, filename);
   const realPath = fs.realpathSync(filepath);
   const fileSize = fs.statSync(realPath).size;
 
