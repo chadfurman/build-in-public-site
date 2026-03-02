@@ -31,3 +31,9 @@ transcripts/
 
 # skill config (machine-specific paths)
 .claude/skills/new-blog-post/config.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
